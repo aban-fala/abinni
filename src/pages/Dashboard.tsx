@@ -37,7 +37,6 @@ const Dashboard: React.FC = () => {
           }
         }
       });
-      console.log("GET Response:", newData);
       setHeaders(newHeaders);
       setData(newData);
     } catch (error) {
@@ -70,7 +69,6 @@ const Dashboard: React.FC = () => {
 
   const onFormSubmit = async (info: Patient) => {
     setModalData(info);
-    console.log("info to submit", info);
     showSpinner();
     try {
       if (info.id) {

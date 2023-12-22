@@ -95,7 +95,6 @@ const Modal: React.FC<Props> = ({ patient, onSubmitInfo, onClickCancel }) => {
     const submitInfo: Patient = { name: fullName, status, dob, addresses };
     submitInfo.id = idRef.current;
     submitInfo.additionals = additionals;
-    console.log("submitInfo", submitInfo);
     onSubmitInfo(submitInfo);
   };
 
