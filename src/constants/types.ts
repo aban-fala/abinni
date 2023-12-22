@@ -1,4 +1,4 @@
-export interface Additional {
+export interface Additionals {
   [key: string]: string | number;
 }
 
@@ -9,20 +9,22 @@ export interface Name {
 }
 
 export enum Status {
+  Empty = "",
   Inquiry = "Inquiry",
   Onboarding = "Onboarding",
   Active = "Active",
   Churned = "Churned",
 }
 
-export interface User {
-  readonly uid?: string;
-  readonly name: Name;
-  readonly status: string;
-  readonly dob: string;
-  readonly addresses: string[];
-  readonly additionals?: Additional[];
+export interface Patient {
+  id?: string;
+  name: Name;
+  status: Status;
+  dob: string;
+  addresses: string[];
+  additionals?: Additionals;
 }
+export type PatientToShow = Patient & { [index: string]: string | number };
 
 export interface Header {
   id: string;

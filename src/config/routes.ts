@@ -1,5 +1,5 @@
-import Dashboard from "../layout/Dashboard";
-import Login from "../layout/Login";
+import Dashboard from "../pages/Dashboard";
+import Login from "../pages/Login";
 
 interface RouteType {
   path: string;

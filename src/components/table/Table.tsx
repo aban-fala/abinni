@@ -1,6 +1,10 @@
 import React, { useMemo, useState } from "react";
 
-import { Button, MantineProvider, MantineSizes } from "@mantine/core";
+import {
+  Button as MantineButton,
+  MantineProvider,
+  MantineSizes,
+} from "@mantine/core";
 import {
   MRT_ColumnDef,
   MRT_ColumnFiltersState,
@@ -11,7 +15,7 @@ import {
   MantineReactTable,
   useMantineReactTable,
 } from "mantine-react-table";
-import { Header, User } from "../../constants/types";
+import { Header, Patient } from "../../constants/types";
 import { convertDateToDateString } from "../../utils/convertData";
 
 const sizes: MantineSizes = {
@@ -25,9 +29,9 @@ const sizes: MantineSizes = {
 
 interface Props {
   headers: Header[];
-  data: User[];
+  data: Patient[];
   onAddClick: () => void;
-  onEditClick: (info: User) => void;
+  onEditClick: (info: Patient) => void;
 }
 
 const Table: React.FC<Props> = ({ headers, data, onAddClick, onEditClick }) => {
@@ -45,28 +49,37 @@ const Table: React.FC<Props> = ({ headers, data, onAddClick, onEditClick }) => {
     pageIndex: 0,
     pageSize: 10,
   });
-
   const columns = useMemo(() => {
-    const cols: MRT_ColumnDef<User>[] = headers.map((columnHeader: Header) => {
-      const { id, header } = columnHeader;
-      const col: MRT_ColumnDef<User> = {
-        id,
-        header,
-        accessorKey: id,
-        enableGlobalFilter: true,
-      };
-      switch (id) {
-        case "name":
-          col.accessorFn = (data: User) => Object.values(data.name).join(" ");
-          break;
-        case "dob":
-          col.accessorFn = (data: User) => convertDateToDateString(data.dob);
-          break;
-        default:
-          break;
+    const cols: MRT_ColumnDef<Patient>[] = headers.map(
+      (columnHeader: Header) => {
+        const { id, header } = columnHeader;
+        const col: MRT_ColumnDef<Patient> = {
+          id,
+          header,
+          accessorKey: id,
+          enableGlobalFilter: true,
+        };
+        switch (id) {
+          case "name":
+            col.accessorFn = (data: Patient) =>
+              Object.values(data.name).join(" ");
+            break;
+          case "dob":
+            col.accessorFn = (data: Patient) =>
+              convertDateToDateString(data.dob);
+            break;
+          case "addresses":
+            col.accessorFn = (data: Patient) => data.addresses.join(", ");
+            break;
+          case "additionals":
+            col.accessorFn = (data: Patient) => "";
+            break;
+          default:
+            break;
+        }
+        return col;
       }
-      return col;
-    });
+    );
 
     return cols;
   }, [headers]);
@@ -99,14 +112,14 @@ const Table: React.FC<Props> = ({ headers, data, onAddClick, onEditClick }) => {
       showColumnFilters,
     },
     renderTopToolbarCustomActions: () => (
-      <Button
-        bg="blue"
-        color="white"
+      <MantineButton
+        bg="gray"
+        c="black"
         title="Add a Record"
         onClick={() => onAddClick()}
       >
         Add a Record
-      </Button>
+      </MantineButton>
     ),
     mantineTableBodyRowProps: ({ row }) => ({
       onDoubleClick: () => {

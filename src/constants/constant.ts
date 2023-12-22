@@ -1,35 +1,38 @@
-import { Header, User } from "./types";
+import { Header, Status, Patient } from "./types";
 
-export const headers: Header[] = [
+export const HEADERS: Header[] = [
   { id: "name", header: "Name" },
   { id: "status", header: "Status" },
   { id: "dob", header: "Date of Birth" },
   { id: "addresses", header: "Addresses" },
-  { id: "additionals", header: "Additionals" },
 ];
 
 export const statusOptions = [
   {
+    label: "",
+    value: Status.Empty,
+  },
+  {
     label: "Inquiry",
-    value: "Inquiry",
+    value: Status.Inquiry,
   },
   {
     label: "Onboarding",
-    value: "Onboarding",
+    value: Status.Onboarding,
   },
   {
     label: "Active",
-    value: "Active",
+    value: Status.Active,
   },
   {
     label: "Churned",
-    value: "Churned",
+    value: Status.Churned,
   },
 ];
 
-export const initialUser: User = {
+export const initialPatient: Patient = {
   name: { first: "", last: "" },
-  status: "",
+  status: Status.Empty,
   dob: "",
-  addresses: [""],
+  addresses: [],
 };
